@@ -15,32 +15,32 @@ export default {
           trigger: 'blur'
         },
         firstName: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
         lastName: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
         address: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
         zipCode: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_XXS,
           trigger: 'blur'
         },
         city: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
         country: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
@@ -50,7 +50,7 @@ export default {
           trigger: 'blur'
         },
         irsOffice: {
-          required: true,
+          required: false,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         }

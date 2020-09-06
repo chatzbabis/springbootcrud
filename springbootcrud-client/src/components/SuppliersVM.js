@@ -5,28 +5,28 @@ export default {
     Person
   },
   created () {
-    this.refreshPersons()
-    console.log('Persons created')
+    this.refreshSuppliers()
+    console.log('Suppliers created')
   },
   mounted () {
     // subscribe to the 'row-selected' event (wherever it may come from, should come from the child table component)
-    this.$events.$on('row-selected', eventData => this.onPersonSelected(eventData))
-    this.$events.$on('person-edited', eventData => this.onPersonEdited(eventData))
-    console.log('Persons mounted')
+    this.$events.$on('row-selected', eventData => this.onSupplierSelected(eventData))
+    this.$events.$on('supplier-edited', eventData => this.onSupplierEdited(eventData))
+    console.log('Suppliers mounted')
   },
   beforeDestroy () {
     // un-subscribe from events
     this.$events.$off('row-selected')
-    this.$events.$off('person-edited')
+    this.$events.$off('supplier-edited')
   },
   destroyed () {
-    console.log('Persons destroyed')
+    console.log('Suppliers destroyed')
   },
   data: function () {
     return {
-      url: 'persons/search/findByQuery?query=',
+      url: 'suppliers/search/findByQuery?query=',
       query: '',
-      persons: [],
+      suppliers: [],
       fields: [
         {
           name: 'id',
@@ -34,15 +34,51 @@ export default {
           sortField: 'id'
         },
         {
-          name: 'name',
-          title: 'Όνομα',
-          sortField: 'name'
+          name: 'companyName',
+          title: 'Όνομα εταιρείας',
+          sortField: 'companyName'
         },
         {
-          name: 'email',
-          title: 'Email',
-          sortField: 'email'
+          name: 'firstName',
+          title: 'Όνομα',
+          sortField: 'firstName'
+        },
+        {
+          name: 'lastName',
+          title: 'Επίθετο',
+          sortField: 'lastName'
+        },
+        {
+          name: 'address',
+          title: 'Διεύθυνση',
+          sortField: 'address'
+        },
+        {
+          name: 'zipCode',
+          title: 'τκ',
+          sortField: 'zipCode'
+        },
+        {
+          name: 'city',
+          title: 'Πόλη',
+          sortField: 'city'
+        },
+        {
+          name: 'country',
+          title: 'Χώρα',
+          sortField: 'country'
+        },
+        {
+          name: 'vatNumber',
+          title: 'ΑΦΜ',
+          sortField: 'vatNumber'
+        },
+        {
+          name: 'irsOffice',
+          title: 'ΔΟΥ',
+          sortField: 'irsOffice'
         }
+
       ]
     }
   },
@@ -50,25 +86,25 @@ export default {
     query: function (newValue) {
       this.query = newValue
       console.log(newValue)
-      this.refreshPersons()
+      this.refreshSuppliers()
     }
   },
   methods: {
-    createPerson (event) {
-      console.log('fire edit-person event')
-      this.$events.fire('edit-person', null)
+    createSupplier (event) {
+      console.log('fire edit-supplier event')
+      this.$events.fire('edit-supplier', null)
     },
-    onPersonSelected (dataItem) {
-      console.log('fire edit-person event')
-      this.$events.fire('edit-person', dataItem)
+    onSupplierSelected (dataItem) {
+      console.log('fire edit-supplier event')
+      this.$events.fire('edit-supplier', dataItem)
     },
-    onPersonEdited (dataItem) {
-      this.refreshPersons()
+    onSupplierEdited (dataItem) {
+      this.refreshSuppliers()
     },
-    refreshPersons () {
+    refreshSuppliers () {
       this.$http.get(this.url + this.query)
         .then(response => {
-          this.persons = response.data._embedded.persons
+          this.suppliers = response.data._embedded.suppliers
         })
         .catch(e => {
           console.log('error: ')

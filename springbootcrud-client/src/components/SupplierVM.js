@@ -6,72 +6,85 @@ export default {
   data: function () {
     return {
       visible: false,
-      context: 'Person',
-      supplier: initPerson(),
-      genderOptions: ['MALE', 'FEMALE'],
+      context: 'Supplier',
+      supplier: initSupplier(),
       rules: {
-        name: {
+        companyName: {
           required: true,
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
-        mobilePhone: {
+        firstName: {
           required: true,
-          min: constants.sizes.SIZE_XXS,
-          max: constants.sizes.SIZE_XS,
-          trigger: 'blur'
-        },
-        email: {
-          required: true,
-          type: 'email',
           max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
-        active: {
-          required: false,
+        lastName: {
+          required: true,
+          max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
-        comments: {
-          required: false,
-          max: constants.sizes.SIZE_XL,
+        address: {
+          required: true,
+          max: constants.sizes.SIZE_M,
           trigger: 'blur'
         },
-        gender: {},
-        department: {
-          required: false,
+        zipCode: {
+          required: true,
+          max: constants.sizes.SIZE_XXS,
+          trigger: 'blur'
+        },
+        city: {
+          required: true,
+          max: constants.sizes.SIZE_M,
+          trigger: 'blur'
+        },
+        country: {
+          required: true,
+          max: constants.sizes.SIZE_M,
+          trigger: 'blur'
+        },
+        vatNumber: {
+          required: true,
+          max: constants.sizes.SIZE_M,
+          trigger: 'blur'
+        },
+        irsOffice: {
+          required: true,
+          max: constants.sizes.SIZE_M,
           trigger: 'blur'
         }
       }
     }
   },
   created () {
-    console.log('Person created')
+    console.log('Supplier created')
   },
   mounted () {
-    this.$events.$on('edit-supplier', eventData => this.onEditPerson(eventData))
-    console.log('Person mounted')
+    this.$events.$on('edit-supplier', eventData => this.onEditSupplier(eventData))
+    console.log('Supplier mounted')
   },
   destroyed: function () {
     this.$events.$off('edit-supplier')
-    console.log('Person destroyed')
+    console.log('Supplier destroyed')
   },
   computed: {
     isDeletable: function () {
-      return this.person.id != null
+      return this.supplier.id != null
     }
   },
   methods: {
-    onEditPerson (eventData) {
-      console.log('Edit Person:' + eventData)
+    onEditSupplier (eventData) {
+      console.log('Edit Supplier:' + eventData)
       if (eventData != null) {
-        this.$http.get('persons/' + eventData.id)
+        this.$http.get('suppliers/' + eventData.id)
           .then(response => {
-            this.person = response.data
+            this.supplier = response.data
             this.visible = true
             this.clearValidation()
           })
       } else {
-        Object.assign(this.$data.person, initPerson())
+        Object.assign(this.$data.supplier, initSupplier())
         this.visible = true
         this.clearValidation()
       }
@@ -79,9 +92,9 @@ export default {
     save () {
       this.$refs['supplierForm'].validate().then(() => {
         let _self = this
-        if (this.person.id != null) {
-          // existing person, update
-          this.$http.patch('suppliers/' + this.person.id, this.person, {
+        if (this.supplier.id != null) {
+          // existing supplier, update
+          this.$http.patch('suppliers/' + this.supplier.id, this.supplier, {
             // transform the selected roles into URIs, before sending
             transformRequest: [function (data, headers) {
               return _self.transformRequest(data)
@@ -90,8 +103,8 @@ export default {
             this.handleSuccess(response)
           }).catch(e => this.handleError(e))
         } else {
-          // new person, create
-          this.$http.post('suppliers', this.person, {
+          // new supplier, create
+          this.$http.post('suppliers', this.supplier, {
             // transform the selected roles into URIs, before sending
             transformRequest: [function (data, headers) {
               return _self.transformRequest(data)
@@ -110,8 +123,8 @@ export default {
     handleSuccess (response) {
       this.visible = false
       this.successFloat(this.$messages.successAction)
-      console.log('fire person-edited event')
-      this.$events.fire('person-edited', this.person)
+      console.log('fire supplier-edited event')
+      this.$events.fire('supplier-edited', this.supplier)
     },
     handleError (e) {
       this.showDefaultError(e)
@@ -126,8 +139,8 @@ export default {
         closeOnPressEscape: false,
         type: 'warning'
       }).then(() => {
-        // delete person
-        this.$http.delete('suppliers/' + this.person.id).then(response => this.handleSuccess(response))
+        // delete supplier
+        this.$http.delete('suppliers/' + this.supplier.id).then(response => this.handleSuccess(response))
       })
     },
     transformRequest (data) {
@@ -145,17 +158,21 @@ export default {
 }
 
 /**
- * Create a new totally empty Person
+ * Create a new totally empty Supplier
  * @returns {{id: null, name: string, mobilePhone: string, gender: null, email: string, comments: string, active: boolean}}
  */
-function initPerson () {
+function initSupplier () {
   return {
     id: null,
-    name: '',
-    mobilePhone: '',
-    gender: null,
-    email: '',
-    comments: '',
-    active: true,
+    companyName: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    vatNumber: '',
+    city: '',
+    country: '',
+    zipCode: '',
+    vatNumber: '',
+    irsOffice: '',
   }
 }

@@ -124,4 +124,20 @@ public class Supplier {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    @Override
+    public String toString() {
+        return "Supplier{" +
+                "id=" + id +
+                ", companyName=" + companyName +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", vatNumber=" + vatNumber +
+                ", irsOffice=" + irsOffice +
+                ", address=" + address +
+                ", zipCode=" + zipCode +
+                ", city=" + city +
+                ", country=" + country +
+                '}';
+    }
 }

@@ -75,8 +75,6 @@ export default {
   },
   methods: {
     onEditSupplier (eventData) {
-    console.log(eventData.id)
-      console.log('Edit Supplier:' + eventData)
       if (eventData != null) {
         this.$http.get('suppliers/' + eventData.id)
           .then(response => {
@@ -97,9 +95,9 @@ export default {
           // existing supplier, update
           this.$http.patch('suppliers/' + this.supplier.id, this.supplier, {
             // transform the selected roles into URIs, before sending
-            transformRequest: [function (data, headers) {
-              return _self.transformRequest(data)
-            }]
+//            transformRequest: [function (data, headers) {
+//              return _self.transformRequest(data)
+//            }]
           }).then(response => {
             this.handleSuccess(response)
           }).catch(e => this.handleError(e))
@@ -107,9 +105,9 @@ export default {
           // new supplier, create
           this.$http.post('suppliers', this.supplier, {
             // transform the selected roles into URIs, before sending
-            transformRequest: [function (data, headers) {
-              return _self.transformRequest(data)
-            }]
+//            transformRequest: [function (data, headers) {
+//              return _self.transformRequest(data)
+//            }]
           }).then(response => this.handleSuccess(response))
             .catch(e => this.handleError(e))
         }

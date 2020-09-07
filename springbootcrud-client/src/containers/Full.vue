@@ -21,6 +21,7 @@ import { Header as AppHeader, Sidebar, Aside as AppAside, Footer as AppFooter, B
 import Multiselect from 'vue-multiselect'
 import Vue from 'vue'
 // Vue.component('person', Person)
+// Vue.component('supplier',Supplier)
 Vue.component('multiselect', Multiselect)
 
 export default {

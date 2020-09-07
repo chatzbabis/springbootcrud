@@ -5,7 +5,7 @@
         <div class="col-lg-12">
           <el-card>
             <div slot="header">
-              <i class='icon-people'></i> Χρήστες
+              <i class='icon-people'></i> Προμηθευτές
             </div>
             <el-row>
               <el-col :span="5">
@@ -19,14 +19,14 @@
               <el-col :span="12">
               <el-button
                 class="el-button--primary"
-                @click="refreshPersons()">Search</el-button>
+                @click="refreshSuppliers()">Search</el-button>
               </el-col>
             </el-row>
             <el-table
-              :data="persons"
+              :data="suppliers"
               stripe
               style="width: 100%"
-              @selection-change="onPersonSelected">
+              @selection-change="onSupplierSelected">
               <el-table-column
                 v-for="(field, index) in fields"
                 v-bind:key="index"
@@ -40,7 +40,7 @@
                   <el-button
                     size="mini"
                     class="el-button--warning"
-                    @click="onPersonSelected(scope.row)">Edit</el-button>
+                    @click="onSupplierSelected(scope.row)">Edit</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -48,7 +48,7 @@
             <div style="text-align: right; margin-top: 1em">
               <el-button
                 class="el-button--success"
-                @click="createPerson">
+                @click="createSupplier">
                 <i class="fa fa-plus"></i>
                 Δημιουργία
               </el-button>
@@ -57,7 +57,7 @@
         </div>
       </div>
     </div>
-    <person></person>
+    <supplier></supplier>
   </div>
 </template>
-<script src="./PersonsVM.js"></script>
+<script src="./SuppliersVM.js"></script>

@@ -56,8 +56,6 @@
             </el-input>
           </el-form-item>
 
-
-
         </el-col>
 
         <!-- RIGHT COLUMN -->
@@ -89,7 +87,6 @@
                       autoComplete="vatNumber">
             </el-input>
           </el-form-item>
-
 
           <el-form-item label="Εισάγετε τη ΔΟΥ του προμηθευτή"
                         prop="irsOffice">

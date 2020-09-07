@@ -1,8 +1,8 @@
-import Person from '@/components/Person'
+import Supplier from '@/components/Supplier'
 
 export default {
   components: {
-    Person
+    Supplier
   },
   created () {
     this.refreshSuppliers()

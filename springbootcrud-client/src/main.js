@@ -58,6 +58,9 @@ Vue.mixin({
     },
     getPersons () {
       return this.$http.get('persons?size=1000')
+    },
+    getSuppliers () {
+      return this.$http.get('suppliers?size=1000')
     }
   }
 })

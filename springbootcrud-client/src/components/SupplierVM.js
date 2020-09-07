@@ -75,6 +75,7 @@ export default {
   },
   methods: {
     onEditSupplier (eventData) {
+    console.log(eventData.id)
       console.log('Edit Supplier:' + eventData)
       if (eventData != null) {
         this.$http.get('suppliers/' + eventData.id)

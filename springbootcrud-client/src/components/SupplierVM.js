@@ -99,7 +99,7 @@ export default {
 //              return _self.transformRequest(data)
 //            }]
           }).then(response => {
-            this.handleSuccess(response)
+            this.handleSuccessUpdate(response)
           }).catch(e => this.handleError(e))
         } else {
           // new supplier, create
@@ -108,7 +108,7 @@ export default {
 //            transformRequest: [function (data, headers) {
 //              return _self.transformRequest(data)
 //            }]
-          }).then(response => this.handleSuccess(response))
+          }).then(response => this.handleSuccessCreate(response))
             .catch(e => this.handleError(e))
         }
       }).catch(e => {
@@ -119,17 +119,30 @@ export default {
       this.visible = false
       this.clearValidation()
     },
-    handleSuccess (response) {
+    handleSuccessUpdate (response) {
       this.visible = false
-      this.successFloat(this.$messages.successAction)
+      this.successFloat(this.$messages.successActionUpdatedSupplier)
       console.log('fire supplier-edited event')
       this.$events.fire('supplier-edited', this.supplier)
     },
+    handleSuccessCreate (response) {
+      this.visible = false
+      this.successFloat(this.$messages.successActionCreatedSupplier)
+      console.log('fire supplier-edited event')
+      this.$events.fire('supplier-edited', this.supplier)
+    },
+    handleSuccessDeleted (response) {
+      this.visible = false
+      this.successFloat(this.$messages.successActionCreatedSupplier)
+      console.log('fire supplier-edited event')
+      this.$events.fire('supplier-edited', this.supplier)
+    },
+
     handleError (e) {
       this.showDefaultError(e)
     },
     confirmDelete () {
-      this.$confirm(this.$messages.confirmAction, this.$messages.confirmActionTitle, {
+      this.$confirm(this.$messages.confirmAction, this.$messages.confirmActionTitleSupplier, {
         confirmButtonText: this.$messages.yes,
         cancelButtonText: this.$messages.no,
         cancelButtonClass: 'btn btn-warning',
@@ -139,7 +152,7 @@ export default {
         type: 'warning'
       }).then(() => {
         // delete supplier
-        this.$http.delete('suppliers/' + this.supplier.id).then(response => this.handleSuccess(response))
+        this.$http.delete('suppliers/' + this.supplier.id).then(response => this.handleSuccessDeleted(response))
       })
     },
     transformRequest (data) {

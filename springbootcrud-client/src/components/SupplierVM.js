@@ -31,7 +31,7 @@ export default {
         },
         zipCode: {
           required: false,
-          max: constants.sizes.SIZE_XXS,
+          len: constants.sizes.SIZE_ZIP,
           trigger: 'blur'
         },
         city: {
@@ -46,7 +46,7 @@ export default {
         },
         vatNumber: {
           required: true,
-          max: constants.sizes.SIZE_M,
+          len: constants.sizes.SIZE_VAT,
           trigger: 'blur'
         },
         irsOffice: {
@@ -95,9 +95,9 @@ export default {
           // existing supplier, update
           this.$http.patch('suppliers/' + this.supplier.id, this.supplier, {
             // transform the selected roles into URIs, before sending
-//            transformRequest: [function (data, headers) {
-//              return _self.transformRequest(data)
-//            }]
+            transformRequest: [function (data, headers) {
+              return _self.transformRequest(data)
+            }]
           }).then(response => {
             this.handleSuccessUpdate(response)
           }).catch(e => this.handleError(e))
@@ -105,9 +105,9 @@ export default {
           // new supplier, create
           this.$http.post('suppliers', this.supplier, {
             // transform the selected roles into URIs, before sending
-//            transformRequest: [function (data, headers) {
-//              return _self.transformRequest(data)
-//            }]
+            transformRequest: [function (data, headers) {
+              return _self.transformRequest(data)
+            }]
           }).then(response => this.handleSuccessCreate(response))
             .catch(e => this.handleError(e))
         }
@@ -156,8 +156,23 @@ export default {
       })
     },
     transformRequest (data) {
-      if (data.mobilePhone === '') {
-        delete data.mobilePhone
+      if (data.firstName === '') {
+        delete data.firstName
+      }
+      if (data.lastName === '') {
+        delete data.lastName
+      }
+      if (data.irsOffice === '') {
+        delete data.irsOffice
+      }
+      if (data.zipCode === '') {
+        delete data.zipCode
+      }
+      if (data.city === '') {
+        delete data.city
+      }
+      if (data.country === '') {
+        delete data.country
       }
       return JSON.stringify(data)
     },
@@ -171,7 +186,9 @@ export default {
 
 /**
  * Create a new totally empty Supplier
- * @returns {{id: null, name: string, mobilePhone: string, gender: null, email: string, comments: string, active: boolean}}
+ * @returns {{id: null, companyName: string, firstName: string,
+  lastName: string, address: string, vatNumber: string,
+  city: string, country: string, zipCode: string, irsOffice: string}}
  */
 function initSupplier () {
   return {
@@ -184,7 +201,6 @@ function initSupplier () {
     city: '',
     country: '',
     zipCode: '',
-    vatNumber: '',
     irsOffice: '',
   }
 }

@@ -131,8 +131,11 @@ export default {
       })
     },
     transformRequest (data) {
-      if (data.mobilePhone === '') {
-        delete data.mobilePhone
+      if (data.gender === null) {
+        delete data.gender
+      }
+      if (data.comments === '') {
+        delete data.comments
       }
       return JSON.stringify(data)
     },

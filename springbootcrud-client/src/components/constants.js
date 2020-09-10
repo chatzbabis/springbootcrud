@@ -1,5 +1,7 @@
 export default {
   sizes: {
+    SIZE_ZIP: 5,
+    SIZE_VAT: 9,
     SIZE_XXS: 10,
     SIZE_XS: 20,
     SIZE_S: 50,
